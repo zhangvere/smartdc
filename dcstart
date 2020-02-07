@@ -1,0 +1,21 @@
+#! /bin/sh /etc/rc.common
+
+START=99
+
+export DC_ROOT=/mnt/smartdc
+export LD_LIBRARY_PATH=/mnt/smartdc/lib
+export LOG_DIR=$DC_ROOT/log
+
+start() {
+	echo "We are going to start DC"
+	syslogd -l 2 -n -s 1024 -b 15 -S -O $LOG_DIR/messages &
+	$DC_ROOT/dcui &
+	$DC_ROOT/smartdc &
+}
+
+stop() {
+	echo "We are going to STOP DC"
+	killall dcui
+	killall smartdc
+	killall syslogd
+}

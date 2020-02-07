@@ -1,0 +1,3 @@
+
+helloworld:
+	echo "**********complie smartdc**********"
